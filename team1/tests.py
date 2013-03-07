@@ -7,7 +7,7 @@ data = [
 ]
 
 for lst in data:
-    assert decode(encode(lst)) == lst
+    assert decode(*encode(lst)) == lst
 
 
 print "ok!"

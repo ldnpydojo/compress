@@ -5,21 +5,35 @@ import pickle
 
 def encode(words):
     counted_words = Counter(words)
-    words_in_order = [item[0] for item in counted_words.most_common()]
+#    words = list(set(words))
+    scores = {word: len(word) * counted_words[word] for word in set(words)}
 
-    ixs_to_words = dict(enumerate(words_in_order))
+    ixs_to_words = dict(enumerate(set(words)))
     words_to_ixs = {v: k for k, v in ixs_to_words.items()}
-    cipher = [words_to_ixs[word] for word in words]
+
+    cipher = []
+    for word in words:
+        if counted_words[word] == 1:
+            cipher.append(word)
+        else:
+            cipher.append(words_to_ixs[word])
     return ixs_to_words, cipher
 
 def decode(ixs_to_words, cipher):
-    return [ixs_to_words[ix] for ix in cipher]
+    decoded = []
+    for k in cipher:
+        if isinstance(k, int):
+            decoded.append(ixs_to_words[k])
+        else:
+            decoded.append(k)
+    return decoded
 
 def encode_file(path1, path2):
-    words = re.split(r'\b', open(path1).read())
+    #words = open(path1).read().split()
+    words = re.findall(r"[\w']+|[.,!?;]", open(path1).read())
     encoded = encode(words)
     with open(path2, 'w') as f:
-        pickle.dump(encoded, f)
+        pickle.dump(encoded, f, pickle.HIGHEST_PROTOCOL)
 
 def decode_file(path1, path2):
     with open(path1) as f:
