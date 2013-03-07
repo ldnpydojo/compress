@@ -2,6 +2,8 @@ import sys
 import collections
 import uncompress
 
+
+# Handle arguments
 if '-u' in sys.argv:
     print uncompress.uncompress(open(sys.argv[-1], 'r').read())
     sys.exit(0)
@@ -13,16 +15,19 @@ else:
     print "INFILE OUTFILE, -u for uncompress"
     sys.exit()
 
+# Read input file
 input_file = open(in_file, 'r')
 original = input_file.read()
 words_split = original.split(" ")
 input_file.close()
 
+# Calc Frequencies
 frequencies = collections.defaultdict(int)
 
 for word in words_split:
     frequencies[word] += 1
 
+# Get highest frequencies over len 3 only.
 high_frequencies = {}
 
 for word in frequencies:
@@ -34,7 +39,7 @@ print "Sorted Frequencies:"
 print sorted_frequencies
 
 output = original
-lookup = []
+lookup = []  # Lookup table for frequent words
 
 for i, word in enumerate(sorted_frequencies[:5]):
     print word,
@@ -48,3 +53,5 @@ with open(out_file, 'w') as fh:
     fh.write("|".join(lookup))
     fh.write("\n")
     fh.write(output)
+
+print "Wrote to: %s" % (out_file)
