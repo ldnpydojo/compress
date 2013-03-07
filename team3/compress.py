@@ -10,7 +10,7 @@ if len(sys.argv) > 2:
     in_file = sys.argv[1]
     out_file = sys.argv[2]
 else:
-    print "INFILE OUTFILE"
+    print "INFILE OUTFILE, -u for uncompress"
     sys.exit()
 
 input_file = open(in_file, 'r')
