@@ -1,5 +1,10 @@
 import sys
 import collections
+import uncompress
+
+if '-u' in sys.argv:
+    print uncompress.uncompress(open(sys.argv[-1], 'r').read())
+    sys.exit(0)
 
 if len(sys.argv) > 2:
     in_file = sys.argv[1]
