@@ -41,7 +41,7 @@ print sorted_frequencies
 output = original
 lookup = []  # Lookup table for frequent words
 
-for i, word in enumerate(sorted_frequencies[:9]):
+for i, word in enumerate(sorted_frequencies):
     print word,
     print i,
     lookup.append(word)

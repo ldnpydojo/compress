@@ -9,7 +9,7 @@ def uncompress(compressed):
 
     uncompressed = []
 
-    marker_re = re.compile(r'\$(\d)')
+    marker_re = re.compile(r'\$(\d+)')
 
     for word in words:
         match = marker_re.match(word)
