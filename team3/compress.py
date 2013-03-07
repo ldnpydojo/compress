@@ -41,13 +41,13 @@ print sorted_frequencies
 output = original
 lookup = []  # Lookup table for frequent words
 
-for i, word in enumerate(sorted_frequencies[:5]):
+for i, word in enumerate(sorted_frequencies[:9]):
     print word,
     print i,
     lookup.append(word)
     target = ' %s ' % word
     print target
-    output = output.replace(target, str(i))
+    output = output.replace(target, " $%s " % i)
 
 with open(out_file, 'w') as fh:
     fh.write("|".join(lookup))
