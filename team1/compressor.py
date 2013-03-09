@@ -1,22 +1,23 @@
 import re
-from itertools import izip, count
 from collections import Counter
 import pickle
 
 def encode(words):
     counted_words = Counter(words)
-#    words = list(set(words))
-    scores = {word: len(word) * counted_words[word] for word in set(words)}
+    #scores = {word: len(word) * counted_words[word] for word in set(words)}
 
-    ixs_to_words = dict(enumerate(set(words)))
+    ixs_to_words = dict(enumerate(k for (k,v) in counted_words.most_common()))
     words_to_ixs = {v: k for k, v in ixs_to_words.items()}
 
     cipher = []
     for word in words:
         if counted_words[word] == 1:
+            print word
             cipher.append(word)
         else:
             cipher.append(words_to_ixs[word])
+    print 'dictionary:', str(ixs_to_words)[:100], '...', str(ixs_to_words)[-100:]
+    print 'ciphertext', str(cipher)[:100]
     return ixs_to_words, cipher
 
 def decode(ixs_to_words, cipher):
